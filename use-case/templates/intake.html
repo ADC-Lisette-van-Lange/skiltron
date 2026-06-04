@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Melding indienen{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <h2 class="mb-1">Melding indienen</h2>
+        <!-- WCAG fout: lage contrast helptekst (#aaa op wit = 2.3:1, vereist 4.5:1) -->
+        <p style="color: #aaaaaa;" class="mb-4">Heeft u hinder ondervonden van Schiphol? Dien hier uw melding in.</p>
+
+        {% if success %}
+        <div class="alert alert-success d-flex align-items-center gap-2">
+            <i class="bi bi-check-circle-fill fs-5"></i>
+            <div>Uw melding is ontvangen met kenmerk <strong>{{ melding_id }}</strong>. U ontvangt zo spoedig mogelijk een reactie.</div>
+        </div>
+        {% endif %}
+
+        <div class="card p-4">
+            <form method="post" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <!-- WCAG fout: label heeft geen 'for', input heeft geen 'id' — niet programmatisch gekoppeld (4.1.2) -->
+                        <label class="form-label fw-semibold">Naam <span style="color:#e00">*</span></label>
+                        <input type="text" name="melder_naam" class="form-control" placeholder="Uw volledige naam" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">E-mailadres</label>
+                        <input type="email" name="email" class="form-control" placeholder="naam@voorbeeld.nl">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Telefoonnummer</label>
+                        <input type="tel" name="telefoon" class="form-control" placeholder="06-00000000">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Woonplaats</label>
+                        <input type="text" name="woonplaats" class="form-control" placeholder="Aalsmeer">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label fw-semibold">Postcode</label>
+                        <input type="text" name="postcodegebied" class="form-control" placeholder="1431">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Type hinder <span style="color:#e00">*</span></label>
+                        <select name="klachtcategorie" class="form-select" required>
+                            <option value="">— Selecteer categorie —</option>
+                            {% for cat in categorieen %}
+                            <option value="{{ cat }}">{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Omschrijving <span style="color:#e00">*</span></label>
+                        <textarea name="omschrijving" class="form-control" rows="4"
+                            placeholder="Beschrijf de hinder zo nauwkeurig mogelijk: tijdstip, duur, locatie en eventuele gevolgen." required></textarea>
+                        <!-- WCAG fout: foutmelding niet gekoppeld via aria-describedby (3.3.1) -->
+                        <div style="color:#e00; font-size:0.8rem; margin-top:4px" id="omschrijving-error" class="d-none">
+                            Dit veld is verplicht.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- WCAG fout: knop heeft alleen icoon + tekst maar geen focus-ring (outline:none) (2.4.7) -->
+                        <button type="submit" class="btn btn-primary px-4" style="outline: none !important; box-shadow: none !important;">
+                            <i class="bi bi-send me-2"></i>Melding indienen
+                        </button>
+                        <!-- WCAG fout: verplichte velden uitgelegd via kleur (rode *) maar zonder tekstuele toelichting (1.4.1) -->
+                        <span style="color:#aaaaaa; font-size:0.8rem; margin-left:12px">* verplicht</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
