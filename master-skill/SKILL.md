@@ -38,3 +38,4 @@ description: >
 - [Algoritmeregister Publicatie](../Skill-Algoritmeregister/SKILL.md)
 - [WCAG Toegankelijkheid](../skill-wcag/SKILL.md)
 - [Organisatie Huisstijl](../skill-ui-huisstijl/SKILL.md)
+- [Kleinste Model per Taak](../skill-kleinste-model/SKILL.md)
