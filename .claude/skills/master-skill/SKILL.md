@@ -9,11 +9,11 @@ description: >
 ## What to do
 
 1. Analyseer de gegeven informatie over de use case: wat is het doel, wie zijn de gebruikers, in welke fase bevindt het project zich (idee / PoC / Pilot / Productie), en wat is de organisatiecontext (overheid, intern, publiek)?
-2. Bekijk de tabel in de sectie **Available skills** onderaan dit bestand voor een overzicht van alle beschikbare skills, hun type output en wat ze concreet opleveren. Open daarna elk relevant bestand om de volledige inhoud te lezen en te bepalen of de skill van toepassing is op deze use case.
+2. Bekijk de tabel in de sectie **Available skills** onderaan dit bestand voor een overzicht van alle beschikbare skills. Open daarna elk relevant bestand om de volledige inhoud te lezen en te bepalen of de skill van toepassing is op deze use case.
 3. Bepaal de volgorde waarin deze skills moeten worden uitgevoerd, rekening houdend met eventuele afhankelijkheden of logische stappen — governance en compliance komen doorgaans vóór technische of inhoudelijke inrichting.
 4. Geef een geordende lijst terug met de relevante skills. Geef per skill:
    - **Waarom relevant**: koppel expliciet aan de use case — benoem het concrete gegeven (bijv. "de assistent verwerkt BSN-nummers", "het gaat om vergunningverlening", "burgers zien de interface") dat de skill noodzakelijk maakt.
-   - **Wat het oplevert**: gebruik de omschrijving uit de kolom "Wat krijg je concreet?" in de tabel hieronder als basis, en pas deze aan op de specifieke use case.
+   - **Waarmee het helpt**: gebruik de omschrijving uit de kolommen 'type output' en 'wat krijg je concreet' in de tabel in de sectie **Output of each skill** onderaan dit bestand als basis, en pas deze aan op de specifieke use case.
    - **Wanneer uitvoeren**: geef aan in welke fase of op welk moment de skill moet worden ingezet.
 5. Geef indien mogelijk ook suggesties voor aanvullende skills die in de toekomst kunnen worden ontwikkeld om de use case nog beter te ondersteunen.
 
@@ -38,6 +38,17 @@ description: >
 - Geef geen volgorde waarbij technische inrichting vóór governance- of compliancestappen staat als de use case een overheids- of hoog-risicocontext heeft.
 
 ## Available skills
+
+- [IAMA — Grondrechten & Juridische Toetsing](../skill-IAMA/SKILL.md)
+- [EU AI Act — Hoog-Risico Classificatie](../skill-EU-AI-act/SKILL.md)
+- [Privacy & Anonimisering](../skill-privacy-anonymisation/SKILL.md)
+- [Algoritmeregister Publicatie](../Skill-Algoritmeregister/SKILL.md)
+- [WCAG Toegankelijkheid](../skill-wcag/SKILL.md)
+- [Organisatie Huisstijl](../skill-ui-huisstijl/SKILL.md)
+- [Kleinste Model per Taak](../skill-kleinste-model/SKILL.md)
+- [Menselijke Controle](../skill-human-in-the-loop/SKILL.md)
+
+## Output of each skill
 
 | Skill | Type output | Wat krijg je concreet? | Link |
 |---|---|---|---|
