@@ -52,4 +52,21 @@
                         <textarea name="omschrijving" class="form-control" rows="4"
                             placeholder="Beschrijf de hinder zo nauwkeurig mogelijk: tijdstip, duur, locatie en eventuele gevolgen." required></textarea>
                         <!-- WCAG fout: foutmelding niet gekoppeld via aria-describedby (3.3.1) -->
-                        <div style="color
+                        <div style="color:#e00; font-size:0.8rem; margin-top:4px" id="omschrijving-error" class="d-none">
+                            Dit veld is verplicht.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- WCAG fout: knop heeft alleen icoon + tekst maar geen focus-ring (outline:none) (2.4.7) -->
+                        <button type="submit" class="btn btn-primary px-4" style="outline: none !important; box-shadow: none !important;">
+                            <i class="bi bi-send me-2"></i>Melding indienen
+                        </button>
+                        <!-- WCAG fout: verplichte velden uitgelegd via kleur (rode *) maar zonder tekstuele toelichting (1.4.1) -->
+                        <span style="color:#aaaaaa; font-size:0.8rem; margin-left:12px">* verplicht</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

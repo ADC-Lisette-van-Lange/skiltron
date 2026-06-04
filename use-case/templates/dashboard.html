@@ -127,4 +127,12 @@ new Chart(document.getElementById('chartCategorie'), {
         labels: categorieData.map(d => d.klachtcategorie),
         datasets: [{
             data: categorieData.map(d => d.aantal),
-            backgroundColor: ['#005b9e','#0d6efd','#198754',
+            backgroundColor: ['#005b9e','#0d6efd','#198754','#fd7e14','#d63384','#6f42c1','#20c997'],
+        }]
+    },
+    options: {
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+    }
+});
+</script>
+{% endblock %}
