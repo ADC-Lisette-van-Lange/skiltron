@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-.DS_Store
-.venv
-=======
   # macOS
   .DS_Store
 
@@ -15,4 +11,3 @@
   # Editor
   .vscode/
   .idea/
->>>>>>> Stashed changes

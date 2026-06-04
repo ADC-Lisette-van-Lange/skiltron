@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-CSV_PATH = Path.home() / "Downloads" / "019e928f-fc30-7c9f-8fd0-b74210a6d378.csv"
+CSV_PATH = Path(__file__).parent / "test_data.csv"
 
 _df = None
 
