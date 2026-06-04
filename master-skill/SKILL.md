@@ -1,21 +1,10 @@
 ---
-id: master-skill
-title: Centrale orkestrator van alle skills voor deze use case
-summary: >
-  Deze skill beheert en structureert alle relevante deel-skills die nodig zijn voor deze specifieke use case. Hij fungeert als centrale orkestrator: op basis van de gebruikersvraag bepaalt hij welke onderliggende skills worden aangesproken, in welke volgorde zij worden uitgevoerd en hoe hun resultaten worden gecombineerd tot één samenhangend antwoord. Hierdoor blijft de logica overzichtelijk, herbruikbaar en eenvoudig uit te breiden met nieuwe skills.
+name: master-skill
+description: >
+  Voer deze skill altijd als eerste uit en lees de volledige output voordat andere skills worden gestart. Deze skill wordt gebruikt wanneer een gebruiker zijn use case beschrijft en vraagt welke skills daarvoor relevant zijn — bijv. "ik wil een digitale assistent bouwen voor vergunningverlening" of "wij helpen burgers met schuldhulp". Ook inzetbaar als de gebruiker een bestaande repository deelt en wil weten of hun digitale assistent aan alle relevante eisen voldoet. Signaalwoorden: "use case", "toepassing", "assistent voor...", "welke skills heb ik nodig", "in welke volgorde".
 ---
 
 # Centrale orkestrator van alle skills
-
-## When to use this Skill
-
-Gebruik deze skill wanneer een gebruiker zijn use case beschrijft en vraagt welke skills daarvoor relevant zijn. Concrete signalen:
-
-- De gebruiker beschrijft een situatie, probleem of doel — bijv. "ik wil een digitale assistent bouwen voor vergunningverlening" of "wij helpen burgers met schuldhulp".
-- De gebruiker vraagt expliciet welke skills hij nodig heeft, of welke hij moet doorlopen.
-- De gebruiker wil weten in welke volgorde hij de beschikbare skills moet inzetten.
-- De gebruiker gebruikt woorden als "use case", "toepassing", "assistent voor...", "scenario", of "ik wil bereiken dat...".
-- De gebruiker deelt een bestaande repository en wil weten of hun digitale assistent aan alle relevante eisen voldoet — gebruik dan deze skill om te bepalen welke skills als audit ingezet kunnen worden om dit te controleren.
 
 ## What to do
 
@@ -43,5 +32,9 @@ Gebruik deze skill wanneer een gebruiker zijn use case beschrijft en vraagt welk
 
 ## Available skills
 
-- [IAMA Wettelijke Toetsing](../IAMA-skill/SKILL.md)
-- [Privacy & Anonimisering](../privacy-anonymisation-skill/SKILL.md)
+- [IAMA — Grondrechten & Juridische Toetsing](../skill-IAMA/SKILL.md)
+- [EU AI Act — Hoog-Risico Classificatie](../skill-EU-AI-act/SKILL.md)
+- [Privacy & Anonimisering](../skill-privacy-anonymisation/SKILL.md)
+- [Algoritmeregister Publicatie](../Skill-Algoritmeregister/SKILL.md)
+- [WCAG Toegankelijkheid](../skill-wcag/SKILL.md)
+- [Organisatie Huisstijl](../skill-ui-huisstijl/SKILL.md)
