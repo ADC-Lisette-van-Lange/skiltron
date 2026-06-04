@@ -1,2 +1,18 @@
+<<<<<<< Updated upstream
 .DS_Store
 .venv
+=======
+  # macOS
+  .DS_Store
+
+  # Python
+  .venv/
+  __pycache__/
+  *.pyc
+  *.pyo
+  .env
+
+  # Editor
+  .vscode/
+  .idea/
+>>>>>>> Stashed changes
