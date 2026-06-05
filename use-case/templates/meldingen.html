@@ -1,27 +1,131 @@
 {% extends "base.html" %}
 {% block title %}Meldingen{% endblock %}
 {% block content %}
+
+<style>
+/* Audit mode highlights */
+.audit-error {
+    background: #fff0f0 !important;
+    outline: 2px solid #dc3545;
+    outline-offset: -2px;
+    position: relative;
+}
+.audit-warning {
+    background: #fff8ec !important;
+    outline: 2px solid #fd7e14;
+    outline-offset: -2px;
+}
+th.audit-error, th.audit-warning {
+    outline-offset: -2px;
+}
+.audit-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: .02em;
+}
+.audit-badge-error { background: #dc3545; color: #fff; }
+.audit-badge-warning { background: #fd7e14; color: #fff; }
+
+/* Findings panel */
+#audit-panel {
+    display: none;
+    margin-bottom: 1.25rem;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(220,53,69,.12);
+}
+#audit-panel.show { display: block; }
+.finding-card {
+    border-left: 4px solid #dc3545;
+    background: #fff;
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0e0e0;
+}
+.finding-card.warning { border-left-color: #fd7e14; }
+.finding-card:last-child { border-bottom: none; }
+.finding-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #888;
+    margin-bottom: 2px;
+}
+.finding-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+.tag-skill { background: #e8f0fe; color: #1a56db; }
+.tag-domain { background: #f3e8ff; color: #7e22ce; }
+</style>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
         <h2 class="mb-0">Meldingen</h2>
         <p class="text-muted mb-0">{{ meldingen|length }} meldingen in het systeem</p>
+    </div>
+    <button id="audit-btn" class="btn btn-danger" onclick="toggleAudit()">
+        <i class="bi bi-bug me-2"></i>Audit
+    </button>
+</div>
+
+<!-- Findings panel -->
+<div id="audit-panel">
+    <div style="background:#dc3545; color:#fff; padding:10px 18px; font-weight:700; font-size:0.95rem;">
+        <i class="bi bi-shield-exclamation me-2"></i>2 bevindingen gevonden op deze pagina
+    </div>
+
+    <div class="finding-card">
+        <div class="finding-label">Bevinding 1 — Privacyschending</div>
+        <div class="fw-bold mb-1">Naam en e-mailadres zichtbaar in het overzicht</div>
+        <div class="mb-2" style="font-size:0.88rem; color:#444;">
+            Directe persoonsgegevens (naam en e-mail) zijn zichtbaar voor iedereen met toegang tot dit overzicht. De inzichtenlaag mag alleen geanonimiseerde of pseudonieme gegevens bevatten.
+        </div>
+        <span class="finding-tag tag-skill"><i class="bi bi-shield-lock me-1"></i>skill-privacy-anonymisation</span>
+        <span class="finding-tag tag-domain"><i class="bi bi-folder me-1"></i>Privacy & Gegevensbescherming</span>
+        <div class="mt-2" style="font-size:0.85rem; color:#198754;">
+            <i class="bi bi-arrow-right-circle me-1"></i><strong>Verbetering:</strong> Verwijder naam en e-mail uit het overzicht. Toon alleen melding-ID, categorie, woonplaats en status.
+        </div>
+    </div>
+
+    <div class="finding-card warning">
+        <div class="finding-label">Bevinding 2 — Ontbrekende menselijke controle</div>
+        <div class="fw-bold mb-1">Routing getoond als definitieve beslissing</div>
+        <div class="mb-2" style="font-size:0.88rem; color:#444;">
+            De routing (welke afdeling de melding behandelt) wordt automatisch bepaald door het systeem en getoond met een groen vinkje alsof het al bevestigd is. Een medewerker moet dit eerst goedkeuren.
+        </div>
+        <span class="finding-tag tag-skill"><i class="bi bi-person-check me-1"></i>skill-human-in-the-loop</span>
+        <span class="finding-tag tag-domain"><i class="bi bi-folder me-1"></i>Governance & Menselijk Toezicht</span>
+        <div class="mt-2" style="font-size:0.85rem; color:#198754;">
+            <i class="bi bi-arrow-right-circle me-1"></i><strong>Verbetering:</strong> Toon routing als suggestie met een goedkeuringsknop. Log wie de routing heeft geaccordeerd en wanneer.
+        </div>
     </div>
 </div>
 
 <div class="card">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <!-- WCAG fout: <th> heeft geen scope attribuut, tabel heeft geen <caption> (1.3.1) -->
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Naam</th>
-                    <th>E-mail</th>
+                    <th id="th-naam">Naam</th>
+                    <th id="th-email">E-mail</th>
                     <th>Categorie</th>
                     <th>Woonplaats</th>
                     <th>Datum</th>
                     <th>Status</th>
-                    <th>Gerouteerd naar</th>
+                    <th id="th-routing">Gerouteerd naar</th>
                     <th></th>
                 </tr>
             </thead>
@@ -29,8 +133,8 @@
                 {% for m in meldingen %}
                 <tr style="cursor:pointer" onclick="openDetail('{{ m.melding_id }}')">
                     <td class="fw-mono text-muted" style="font-size:0.8rem">{{ m.melding_id }}</td>
-                    <td class="fw-semibold">{{ m.melder_naam or '—' }}</td>
-                    <td class="text-muted">{{ m.email or '—' }}</td>
+                    <td class="fw-semibold audit-naam">{{ m.melder_naam or '—' }}</td>
+                    <td class="text-muted audit-email">{{ m.email or '—' }}</td>
                     <td>
                         {% if m.klachtcategorie %}
                         <span class="badge bg-secondary">{{ m.klachtcategorie }}</span>
@@ -48,13 +152,12 @@
                         {% else %}<span class="badge bg-secondary">{{ s }}</span>
                         {% endif %}
                     </td>
-                    <td>
+                    <td class="audit-routing">
                         <span class="text-success fw-semibold" style="font-size:0.85rem">
                             <i class="bi bi-check-circle-fill me-1"></i>{{ m._routing }}
                         </span>
                     </td>
                     <td>
-                        <!-- WCAG fout: knop heeft alleen een icoon, geen toegankelijke naam (4.1.2) -->
                         <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); openDetail('{{ m.melding_id }}')">
                             <i class="bi bi-eye"></i>
                         </button>
@@ -85,6 +188,56 @@
 {% block scripts %}
 <script>
 const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+let auditActive = false;
+
+function toggleAudit() {
+    auditActive = !auditActive;
+    const btn = document.getElementById('audit-btn');
+    const panel = document.getElementById('audit-panel');
+
+    // Toggle panel
+    panel.classList.toggle('show', auditActive);
+
+    // Toggle button label
+    btn.innerHTML = auditActive
+        ? '<i class="bi bi-x-circle me-2"></i>Audit sluiten'
+        : '<i class="bi bi-bug me-2"></i>Audit';
+
+    // Highlight naam + email headers and cells
+    document.getElementById('th-naam').classList.toggle('audit-error', auditActive);
+    document.getElementById('th-email').classList.toggle('audit-error', auditActive);
+    document.querySelectorAll('.audit-naam, .audit-email').forEach(el => {
+        el.classList.toggle('audit-error', auditActive);
+    });
+
+    // Add badge to headers
+    ['th-naam','th-email'].forEach(id => {
+        const th = document.getElementById(id);
+        const existing = th.querySelector('.audit-badge');
+        if (auditActive && !existing) {
+            th.insertAdjacentHTML('beforeend', '<span class="audit-badge audit-badge-error">PII</span>');
+        } else if (!auditActive && existing) {
+            existing.remove();
+        }
+    });
+
+    // Highlight routing header and cells
+    document.getElementById('th-routing').classList.toggle('audit-warning', auditActive);
+    document.querySelectorAll('.audit-routing').forEach(el => {
+        el.classList.toggle('audit-warning', auditActive);
+    });
+
+    const thRouting = document.getElementById('th-routing');
+    const existingBadge = thRouting.querySelector('.audit-badge');
+    if (auditActive && !existingBadge) {
+        thRouting.insertAdjacentHTML('beforeend', '<span class="audit-badge audit-badge-warning">Geen controle</span>');
+    } else if (!auditActive && existingBadge) {
+        existingBadge.remove();
+    }
+
+    // Scroll to panel
+    if (auditActive) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 
 function statusBadge(s) {
     const map = {
