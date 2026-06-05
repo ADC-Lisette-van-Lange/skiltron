@@ -1,138 +1,71 @@
 {% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}Data-assistent{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h2 class="mb-0">Dashboard</h2>
-        <p class="text-muted mb-0">Bestuurlijk inzicht in Schiphol-gerelateerde signalen</p>
-    </div>
-</div>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h2 class="mb-1">Data-assistent</h2>
+        <p class="text-muted mb-4">Stel vragen over de Schiphol-meldingsdata.</p>
 
-<!-- Samenvattingskaarten -->
-<div class="row g-3 mb-4">
-    <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <div class="fs-1 fw-bold text-primary">{{ totaal }}</div>
-            <div class="text-muted small">Totaal meldingen</div>
+        <div class="card d-flex flex-column" style="height:600px;">
+            <div class="card-header d-flex align-items-center gap-2 bg-white">
+                <i class="bi bi-robot text-primary fs-5"></i>
+                <strong>Schiphol Signalen Assistent</strong>
+            </div>
+            <div id="chat-messages" style="flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px;">
+                <div class="chat-msg bot">Hallo! Stel een vraag over de meldingsdata.</div>
+            </div>
+            <div style="padding:12px; border-top:1px solid #dee2e6; display:flex; gap:8px; flex-shrink:0;">
+                <input id="chat-input" type="text" class="form-control" placeholder="Stel een vraag…"
+                    onkeydown="if(event.key==='Enter')sendMessage()">
+                <button onclick="sendMessage()" class="btn btn-primary px-3">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <div class="fs-1 fw-bold text-warning">{{ open }}</div>
-            <div class="text-muted small">Open meldingen</div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <div class="fs-1 fw-bold text-success">{{ gesloten }}</div>
-            <div class="text-muted small">Gesloten</div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card p-3 text-center">
-            <div class="fs-1 fw-bold text-info">{{ beantwoord }}</div>
-            <div class="text-muted small">Beantwoord</div>
-        </div>
-    </div>
-</div>
-
-<!-- Grafieken -->
-<div class="row g-4 mb-4">
-    <div class="col-lg-7">
-        <div class="card p-3">
-            <h6 class="fw-semibold mb-3">Meldingen per woonplaats</h6>
-            <!-- WCAG fout: canvas heeft geen aria-label of role="img" met tekstalternatief (1.1.1) -->
-            <canvas id="chartWoonplaats" height="220"></canvas>
-        </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="card p-3">
-            <h6 class="fw-semibold mb-3">Meldingen per categorie</h6>
-            <!-- WCAG fout: canvas heeft geen aria-label of role="img" met tekstalternatief (1.1.1) -->
-            <canvas id="chartCategorie" height="220"></canvas>
-        </div>
-    </div>
-</div>
-
-<!-- Recente meldingen — inclusief persoonsgegevens (foute versie) -->
-<div class="card">
-    <div class="card-header bg-white fw-semibold">Recente meldingen</div>
-    <div class="table-responsive">
-        <table class="table table-sm align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>Naam</th>
-                    <th>E-mail</th>
-                    <th>Categorie</th>
-                    <th>Woonplaats</th>
-                    <th>Omschrijving</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for m in recente %}
-                <tr>
-                    <td class="fw-semibold">{{ m.melder_naam or '—' }}</td>
-                    <td class="text-muted" style="font-size:0.8rem">{{ m.email or '—' }}</td>
-                    <td><span class="badge bg-secondary">{{ m.klachtcategorie or '—' }}</span></td>
-                    <td>{{ m.woonplaats or '—' }}</td>
-                    <td style="max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:0.82rem" title="{{ m.omschrijving }}">
-                        {{ m.omschrijving[:80] }}{% if m.omschrijving|length > 80 %}…{% endif %}
-                    </td>
-                    <td>
-                        {% set s = m.status %}
-                        {% if s == 'Nieuw' %}<span class="badge" style="background:#d63384">Nieuw</span>
-                        {% elif s == 'In behandeling' %}<span class="badge" style="background:#fd7e14">In behandeling</span>
-                        {% elif s == 'Gesloten' %}<span class="badge bg-success">Gesloten</span>
-                        {% elif s == 'Beantwoord' %}<span class="badge bg-primary">Beantwoord</span>
-                        {% else %}<span class="badge bg-secondary">{{ s }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-const woonplaatsData = {{ per_woonplaats | tojson }};
-const categorieData = {{ per_categorie | tojson }};
-
-new Chart(document.getElementById('chartWoonplaats'), {
-    type: 'bar',
-    data: {
-        labels: woonplaatsData.map(d => d.woonplaats),
-        datasets: [{
-            label: 'Meldingen',
-            data: woonplaatsData.map(d => d.aantal),
-            backgroundColor: '#005b9e',
-            borderRadius: 4,
-        }]
-    },
-    options: {
-        plugins: { legend: { display: false } },
-        scales: {
-            y: { beginAtZero: true, ticks: { stepSize: 1 } },
-            x: { ticks: { font: { size: 11 } } }
-        }
+async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    appendMessage(msg, 'user');
+    input.value = '';
+    const loadingEl = appendMessage('…', 'bot loading');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000);
+    try {
+        const res = await fetch('/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: msg }),
+            signal: controller.signal,
+        });
+        clearTimeout(timer);
+        const json = await res.json();
+        loadingEl.remove();
+        appendMessage(res.ok ? json.reply : 'Fout: ' + (json.detail || res.status), 'bot');
+    } catch (e) {
+        clearTimeout(timer);
+        loadingEl.remove();
+        appendMessage(e.name === 'AbortError' ? 'Verzoek duurde te lang. Probeer opnieuw.' : 'Fout: ' + e.message, 'bot');
     }
-});
-
-new Chart(document.getElementById('chartCategorie'), {
-    type: 'doughnut',
-    data: {
-        labels: categorieData.map(d => d.klachtcategorie),
-        datasets: [{
-            data: categorieData.map(d => d.aantal),
-            backgroundColor: ['#005b9e','#0d6efd','#198754','#fd7e14','#d63384','#6f42c1','#20c997'],
-        }]
-    },
-    options: {
-        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+}
+function appendMessage(text, cls) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + cls;
+    if (cls.includes('bot') && !cls.includes('loading')) {
+        div.innerHTML = marked.parse(text);
+    } else {
+        div.textContent = text;
     }
-});
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+}
 </script>
 {% endblock %}
