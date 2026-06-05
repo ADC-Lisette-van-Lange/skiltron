@@ -47,6 +47,7 @@ description: >
 - [Organisatie Huisstijl](../skill-ui-huisstijl/SKILL.md)
 - [Kleinste Model per Taak](../skill-kleinste-model/SKILL.md)
 - [Menselijke Controle](../skill-human-in-the-loop/SKILL.md)
+- [Monitoring, Evaluatie en LLMOps](../skill-llmops-monitoring/SKILL.md)
 
 ## Output of each skill
 
@@ -60,3 +61,4 @@ description: >
 | Organisatie Huisstijl | Bouwadvies | Een tokenbestand met kleuren, lettertype en logo van de organisatie, gekoppeld aan de interface | [SKILL.md](../skill-ui-huisstijl/SKILL.md) |
 | Kleinste Model per Taak | Bouwadvies | Een configuratiebestand waarin per taak staat welk model je gebruikt | [SKILL.md](../skill-kleinste-model/SKILL.md) |
 | Menselijke Controle | Bouwadvies + Controlelijst | Een menselijk toezichtplan met escalatiepad, override-bediening in de UI, logboek van menselijke beslissingen, en een RACI-matrix voor verantwoordelijkheden | [SKILL.md](../skill-human-in-the-loop/SKILL.md) |
+| Monitoring, Evaluatie en LLMOps | Bouwadvies + Controlelijst | Een observability-opzet met Langfuse, RAGAS-kwaliteitsscores (faithfulness, answer relevancy, context precision, context recall), tokenbudgetten per toepassing, en een feedbackloop vanuit productie | [SKILL.md](../skill-llmops-monitoring/SKILL.md) |
