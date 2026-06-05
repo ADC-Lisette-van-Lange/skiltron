@@ -198,7 +198,7 @@ async def chat_endpoint(req: ChatRequest):
         f"Totaal meldingen: {stats['totaal']}\n"
         f"Open: {stats['open']}, Gesloten: {stats['gesloten']}, Beantwoord: {stats['beantwoord']}\n"
         f"Per categorie: {stats['per_categorie']}\n"
-        f"Per woonplaats (top 10): {stats['per_woonplaats']}\n"
+        f"Per woonplaats: {stats['per_woonplaats']}\n"
         f"Datumrange: {dates['vroegste']} t/m {dates['laatste']}\n"
         f"Meldingen per maand: {dates['per_maand']}"
     )

@@ -64,14 +64,13 @@ def dashboard_stats():
     gesloten = len(_df[_df["status"] == "Gesloten"])
     beantwoord = len(_df[_df["status"] == "Beantwoord"])
 
-    # Counts per woonplaats — inclusief < 5 (foute versie)
+    # Counts per woonplaats — inclusief groepen < 5, geen k-anonimiteit (foute versie)
     per_woonplaats = (
         _df[_df["woonplaats"] != ""]
         .groupby("woonplaats")
         .size()
         .reset_index(name="aantal")
         .sort_values("aantal", ascending=False)
-        .head(10)
         .to_dict(orient="records")
     )
 
