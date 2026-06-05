@@ -99,12 +99,11 @@ async def chat_endpoint(req: ChatRequest):
     return JSONResponse({"reply": reply})
 
 
-# --- Pagina 3: Dashboard ---
+# --- Pagina 3: Data-assistent ---
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard(request: Request):
-    stats = data.dashboard_stats()
     return templates.TemplateResponse(
         request=request, name="dashboard.html",
-        context=stats,
+        context={},
     )
