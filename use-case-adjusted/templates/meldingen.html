@@ -21,9 +21,7 @@
             <!-- WCAG fout: <th> heeft geen scope attribuut, tabel heeft geen <caption> (1.3.1) -->
             <thead class="table-light">
                 <tr>
-                    <th>ID</th>
-                    <th>Naam</th>
-                    <th>E-mail</th>
+                    <th>Zaaknummer</th>
                     <th>Categorie</th>
                     <th>Woonplaats</th>
                     <th>Datum</th>
@@ -36,8 +34,6 @@
                 {% for m in meldingen %}
                 <tr style="cursor:pointer" onclick="openDetail('{{ m.melding_id }}')">
                     <td class="fw-mono text-muted">{{ m.melding_id }}</td>
-                    <td class="fw-semibold">{{ m.melder_naam or '—' }}</td>
-                    <td class="text-muted">{{ m.email or '—' }}</td>
                     <td>
                         {% if m.klachtcategorie %}
                         <span class="badge bg-secondary">{{ m.klachtcategorie }}</span>

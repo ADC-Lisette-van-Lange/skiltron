@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}Memo generator{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold mb-1" style="color:var(--aalsmeer-blauw);">
+        <i class="bi bi-file-earmark-text me-2"></i>Memo generator
+    </h2>
+    <p class="text-muted mb-0">Beantwoord vier vragen en genereer direct een beleidsadvies als PDF.</p>
+</div>
+
+<div class="row g-4">
+
+    <!-- Form card -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body p-4">
+                <form id="memo-form" novalidate>
+
+                    <!-- 1. Doelgroep -->
+                    <div class="mb-4">
+                        <label for="doelgroep" class="form-label fw-semibold">
+                            Voor wie is dit memo bestemd?
+                        </label>
+                        <textarea
+                            id="doelgroep"
+                            name="doelgroep"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Bijv. Wethouder Mobiliteit & Leefomgeving, college van B&W, de gemeenteraad, afdeling Milieu & Leefomgeving of inwoners van Aalsmeer"
+                        ></textarea>
+                    </div>
+
+                    <!-- 2. Vraagstuk -->
+                    <div class="mb-4">
+                        <label for="vraagstuk" class="form-label fw-semibold">
+                            Wat is het centrale vraagstuk of beleidsthema?
+                        </label>
+                        <textarea
+                            id="vraagstuk"
+                            name="vraagstuk"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Bijv. De toename van geluidsklachten rondom Schiphol en de impact op de leefbaarheid en gezondheid van inwoners"
+                        ></textarea>
+                    </div>
+
+                    <!-- 3. Scope -->
+                    <div class="mb-4">
+                        <label for="scope" class="form-label fw-semibold">
+                            Wat is de scope van het memo?
+                        </label>
+                        <textarea
+                            id="scope"
+                            name="scope"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Bijv. Eerste kwartaal 2026, inwoners van Aalsmeer en Castricum, klachtcategorieën geluid en slaapverstoring"
+                        ></textarea>
+                    </div>
+
+                    <!-- 4. Doel & richting -->
+                    <div class="mb-4">
+                        <label for="doel_richting" class="form-label fw-semibold">
+                            Wat is het doel van het memo en welke richting of aanbeveling wordt verwacht?
+                        </label>
+                        <textarea
+                            id="doel_richting"
+                            name="doel_richting"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Bijv. Informeren over de actuele situatie en adviseren over een bestuurlijke reactie richting het Rijk en Schiphol Group"
+                        ></textarea>
+                    </div>
+
+                    <!-- Error alert -->
+                    <div id="error-alert" class="alert alert-danger d-none mb-3" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <span id="error-msg"></span>
+                    </div>
+
+                    <!-- Generate button -->
+                    <div class="d-flex align-items-center gap-3">
+                        <button type="submit" id="genereer-btn" class="btn btn-primary px-4 py-2">
+                            <i class="bi bi-file-earmark-pdf me-2"></i>Genereer memo als PDF
+                        </button>
+                        <span id="success-msg" class="text-success fw-semibold d-none">
+                            <i class="bi bi-check-circle-fill me-1"></i>PDF wordt gedownload&hellip;
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips sidebar -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3" style="color:var(--aalsmeer-blauw);">
+                    <i class="bi bi-lightbulb me-2"></i>Tips voor goede instructies
+                </h6>
+                <ul class="list-unstyled mb-0" style="font-size:.9rem; line-height:1.7;">
+                    <li class="mb-3">
+                        <i class="bi bi-check2 me-2" style="color:var(--aalsmeer-blauw);"></i>
+                        Noem een <strong>concrete functie</strong> bij de doelgroep: wethouder Mobiliteit is specifieker dan "bestuur".
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-check2 me-2" style="color:var(--aalsmeer-blauw);"></i>
+                        Omschrijf het vraagstuk als een <strong>probleem of dilemma</strong>, niet alleen als onderwerp.
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-check2 me-2" style="color:var(--aalsmeer-blauw);"></i>
+                        Geef bij de scope een <strong>tijdsperiode</strong> én een <strong>geografisch of thematisch kader</strong>.
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-check2 me-2" style="color:var(--aalsmeer-blauw);"></i>
+                        Vraag impliciet om een <strong>aanbeveling</strong> door het vraagstuk als openstaande kwestie te formuleren.
+                    </li>
+                    <li>
+                        <i class="bi bi-info-circle me-2" style="color:var(--aalsmeer-blauw);"></i>
+                        De AI gebruikt automatisch alle beschikbare meldingsdata als feitelijke onderbouwing.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('memo-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const btn = document.getElementById('genereer-btn');
+    const errorAlert = document.getElementById('error-alert');
+    const errorMsg = document.getElementById('error-msg');
+    const successMsg = document.getElementById('success-msg');
+
+    const filled = ['doelgroep','vraagstuk','scope','doel_richting'].some(
+        id => document.getElementById(id).value.trim()
+    );
+    if (!filled) {
+        errorMsg.textContent = 'Vul minimaal één veld in om een memo te genereren.';
+        errorAlert.classList.remove('d-none');
+        return;
+    }
+
+    errorAlert.classList.add('d-none');
+    successMsg.classList.add('d-none');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Bezig met genereren&hellip;';
+
+    try {
+        const res = await fetch('/memo/genereer', {
+            method: 'POST',
+            body: new FormData(form),
+        });
+
+        if (!res.ok) {
+            const json = await res.json().catch(() => ({}));
+            throw new Error(json.error || `Serverfout (${res.status})`);
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'memo-gemeente-aalsmeer.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        successMsg.classList.remove('d-none');
+        setTimeout(() => successMsg.classList.add('d-none'), 4000);
+
+    } catch (err) {
+        errorMsg.textContent = err.message || 'Er is een onbekende fout opgetreden.';
+        errorAlert.classList.remove('d-none');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-file-earmark-pdf me-2"></i>Genereer memo als PDF';
+    }
+});
+</script>
+{% endblock %}
