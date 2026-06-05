@@ -1,5 +1,5 @@
 ---
-name: skill-llmops-monitoring
+name: llmops-monitoring
 description: >
   Gebruik deze skill wanneer een digitale assistent naar productie gaat of al in productie draait en je wilt weten of de kwaliteit, kosten en beschikbaarheid op orde zijn. LLMOps werkt wezenlijk anders dan traditioneel applicatiebeheer: naast latency en beschikbaarheid moeten ook antwoordkwaliteit, hallucinaties, tokengebruik en kosten worden bewaakt. Trigger bij: "monitoring", "observability", "LLMOps", "hallucinaties meten", "kwaliteit bewaken", "Langfuse", "RAGAS", "LLM-as-a-judge", "tokenkosten", "productie AI", "hoe weet ik of mijn assistent goed werkt", "logging en tracing", "evaluatie in productie", "MLflow", "DeepEval", "LangWatch".
 ---
