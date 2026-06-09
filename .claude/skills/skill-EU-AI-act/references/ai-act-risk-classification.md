@@ -33,7 +33,7 @@ A public body can also become a *provider* — e.g. by building its own system, 
 
 ## Recording the classification
 
-Capture a short, dated classification record with reasoning (see `templates/risicoclassificatie.md`): the category, the Annex III area (if any), the provider/deployer role, the art. 6 carve-out justification (if claimed), and the open follow-ups. This record is the first item in the toetsingsdossier (see the `skill-IAMA` skill).
+Capture a short, dated classification record with reasoning (see `templates/risicoclassificatie.md`): the category, the Annex III area (if any), the provider/deployer role, the art. 6 carve-out justification (if claimed), and the open follow-ups. This record is the first item in the toetsingsdossier (see the `skill-iama` skill).
 
 ## Sources
 

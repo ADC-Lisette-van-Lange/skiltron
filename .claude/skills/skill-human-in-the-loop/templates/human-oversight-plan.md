@@ -3,7 +3,7 @@
 > Fill this in for the solution. It defines how a human stays in control, and whether
 > that control is optional (low-risk) or mandatory (high-risk). It is the detailed
 > version of section 5 ("Human-oversight plan") of the toetsingsdossier in the
-> `skill-IAMA` skill — link the two.
+> `skill-iama` skill — link the two.
 
 ## 0. Risk and obligation
 - **Risk classification** (from the `ai-act-high-risk` skill): ☐ Minimal ☐ Limited ☐ High-risk ☐ Prohibited

@@ -1,6 +1,6 @@
 ---
 name: menselijke-controle
-description: "Use this skill whenever you are designing or building the final solution of a digital assistant, to guarantee a human can stay in control of what it does. Every solution built with this skill must have a human-in-the-loop OPTION — a real way for a person to review, intervene, override, or take over — and any solution that is HIGH-RISK (the ai-act-high-risk skill decides) must have MANDATORY, non-bypassable human oversight before a decision takes effect. It helps choose the right oversight model per use case (human in / on / above / before the loop), makes that oversight meaningful rather than a rubber stamp, and builds the override and escalation path into the architecture and UI. Triggers include 'human in the loop', 'human-in-the-loop', 'HITL', 'menselijke controle', 'menselijk toezicht', 'human oversight', 'menselijke tussenkomst', 'escalation', 'override', 'stop button', 'approval step', 'automated decision', 'geautomatiseerde besluitvorming', 'AVG art. 22', 'AI Act article 14', or finalising any assistant that makes or supports decisions about people. Do not sign off a solution as done without a human-control path — optional by default, mandatory when high-risk."
+description: "Use this skill when designing or building a digital assistant to ensure a human stays in control. Every solution must have a human-in-the-loop OPTION — a real way to review, intervene, override, or take over — and HIGH-RISK solutions must have MANDATORY, non-bypassable oversight before decisions take effect. Helps choose the right oversight model (human in / on / above / before the loop), makes it meaningful rather than a rubber stamp, and builds the override and escalation path into the architecture and UI. Triggers include 'human in the loop', 'HITL', 'menselijke controle', 'menselijk toezicht', 'human oversight', 'escalation', 'override', 'stop button', 'approval step', 'automated decision', 'geautomatiseerde besluitvorming', 'AVG art. 22', 'AI Act article 14', or finalising any assistant that makes decisions about people. Do not sign off without a human-control path — optional by default, mandatory when high-risk."
 ---
 
 # Human control over the assistant
@@ -10,7 +10,7 @@ A digital assistant may support the work, but it must never fully, autonomously 
 ## The two rules this skill enforces
 
 1. **Every solution gets a human-in-the-loop *option*.** Whatever you build with this skill must include a genuine way for a person to review, intervene, override, or take over — an escalation path to a human, an override/stop control, and the ability to set the assistant's output aside. This holds even for low-risk assistants: a fallback to a human must exist and be reachable.
-2. **High-risk solutions get *mandatory*, non-bypassable human oversight.** If the solution is high-risk, a human must be in the loop **before any decision takes effect**, and that step cannot be silently disabled or skipped. Get the risk classification from the **`ai-act-high-risk`** skill; if it is high-risk (or it makes decisions about people in the sense of AVG art. 22), human-in-the-loop is required, not optional. Record it in the oversight plan and, for public bodies, in the FRIA (see the `skill-IAMA` skill).
+2. **High-risk solutions get *mandatory*, non-bypassable human oversight.** If the solution is high-risk, a human must be in the loop **before any decision takes effect**, and that step cannot be silently disabled or skipped. Get the risk classification from the **`ai-act-high-risk`** skill; if it is high-risk (or it makes decisions about people in the sense of AVG art. 22), human-in-the-loop is required, not optional. Record it in the oversight plan and, for public bodies, in the FRIA (see the `skill-iama` skill).
 
 If you cannot tell whether the solution is high-risk, treat the oversight as mandatory until the classification says otherwise.
 
@@ -49,7 +49,7 @@ The control path is part of the deliverable, not a policy footnote:
 - **logging of human decisions** (who reviewed, what they changed, when) for auditability;
 - clear **responsibilities** — never one person for the whole of control. Capture in a RACI/VERI matrix who is responsible per phase, who is ultimately accountable for deviant behaviour, and who handles signals from operations. Don't offload process responsibility onto the individual reviewer.
 
-Capture all of this in `templates/human-oversight-plan.md` (which also feeds section 5 of the `skill-IAMA` toetsingsdossier).
+Capture all of this in `templates/human-oversight-plan.md` (which also feeds section 5 of the `skill-iama` toetsingsdossier).
 
 ## Don't call it done without a control path
 

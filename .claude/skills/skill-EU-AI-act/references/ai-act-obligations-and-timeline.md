@@ -16,7 +16,7 @@ Read this for what high-risk and limited-risk systems must satisfy, and when. Or
 
 - **Art. 16–18 — Providers.** Ensure the art. 9–15 requirements; maintain a **quality-management system** (art. 17) and **technical documentation** (art. 18); undergo **conformity assessment** and affix **CE marking**.
 - **Art. 26 — Deployers.** Use per instructions; ensure human oversight in practice; monitor operation; keep logs; suspend and report where risks or serious incidents arise; cooperate with authorities.
-- **Art. 27 — Fundamental-rights impact assessment (FRIA).** **Public-body deployers** (and private entities providing public services, plus certain credit/insurance deployers) must perform a FRIA **before first use** and **notify the market-surveillance authority** of the result. → handled by the `skill-IAMA` skill.
+- **Art. 27 — Fundamental-rights impact assessment (FRIA).** **Public-body deployers** (and private entities providing public services, plus certain credit/insurance deployers) must perform a FRIA **before first use** and **notify the market-surveillance authority** of the result. → handled by the `skill-iama` skill.
 - **Art. 49 — Registration.** Providers register high-risk systems in the **EU database**; public-authority deployers register their use as well.
 
 ## Limited-risk transparency — article 50

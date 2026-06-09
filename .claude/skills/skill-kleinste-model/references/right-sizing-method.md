@@ -9,7 +9,7 @@ For each task, rate the signals that drive how capable a model has to be:
 - **Input complexity** — short and well-formed, or long, messy, multi-document?
 - **Reasoning depth** — pattern-match / classify / extract (shallow), or multi-step inference and synthesis (deep)?
 - **Output structure** — a label or short span (easy to get right and to check), or open-ended generation?
-- **Stakes / risk** — does an error affect a person's rights, money, or access to a service? Higher stakes raise the quality bar (and may pull in the `skill-IAMA` / `ai-act-high-risk` skills).
+- **Stakes / risk** — does an error affect a person's rights, money, or access to a service? Higher stakes raise the quality bar (and may pull in the `skill-iama` / `ai-act-high-risk` skills).
 - **Error tolerance** — can a wrong answer be cheaply caught and corrected, or does it go straight to a citizen?
 - **Latency sensitivity** — is this in the interactive path where speed is UX, or a background job?
 - **Volume / frequency** — high-volume tasks are where right-sizing pays off most; rare tasks rarely justify much tuning.

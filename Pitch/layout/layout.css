@@ -1,0 +1,172 @@
+/* Layout shell — Rijksoverheid huisstijl
+   Losstaand van de rest van de codebase.
+   Bevat alleen wat nodig is voor: logo, navbar, main-wrapper en footer.
+*/
+
+/* ===== Kleurvariabelen ===== */
+:root {
+  --ro-blue-900: #0b3d68;
+  --ro-blue-800: #154273;     /* donker rijksblauw — navbar + footer */
+  --ro-blue-700: #1d4f7c;
+  --ro-blue-600: #01689b;     /* hemelblauw — accent */
+  --ro-blue-500: #007bc7;
+  --ro-blue-300: #8fcae7;
+  --ro-blue-200: #cce0ee;
+  --ro-blue-100: #e6f0f7;
+  --ro-blue-50:  #f3f7fb;
+
+  --ink-900: #0b1d2e;
+  --ink-700: #354a5f;
+  --ink-500: #6b7785;
+  --ink-300: #c7ced6;
+  --ink-200: #e3e8ed;
+  --ink-100: #eef2f6;
+  --ink-50:  #f6f8fa;
+  --paper:   #ffffff;
+
+  --radius: 3px;
+  --shadow-2: 0 2px 6px rgba(11,29,46,.06);
+
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
+/* ===== Dark mode ===== */
+html[data-theme="dark"] {
+  --paper: #0b1a28;
+  --ink-50:  #0f2235;
+  --ink-100: #142a40;
+  --ink-200: #1d3851;
+  --ink-300: #2a4868;
+  --ink-500: #93acc6;
+  --ink-700: #c6d5e3;
+  --ink-900: #f1f5f9;
+
+  --ro-blue-50:  #0f2235;
+  --ro-blue-100: #16314a;
+  --ro-blue-200: #1f4163;
+  --ro-blue-300: #2d6090;
+  --ro-blue-500: #3a93cf;
+  --ro-blue-600: #4ea7df;
+  --ro-blue-700: #6cb9e6;
+  --ro-blue-800: #8fcae7;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink-50);
+  color: var(--ink-900);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ro-blue-600); text-underline-offset: 2px; }
+a:hover { color: var(--ro-blue-500); }
+
+:focus-visible { outline: 3px solid #fbb705; outline-offset: 2px; }
+button { font-family: inherit; cursor: pointer; }
+::selection { background: var(--ro-blue-200); color: var(--ro-blue-900); }
+
+/* ===== App-wrapper ===== */
+.app { min-height: 100vh; display: flex; flex-direction: column; background: var(--ink-50); }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 32px; width: 100%; }
+
+/* ===== Logobar (Rijksoverheid huisstijl)
+   lint = 50px desktop | 45px tablet ≤900px | 40px mobiel ≤480px
+   Logowidth = lint / 0.332  |  padding = ½ lint ===== */
+.logobar {
+  background: #fff;
+  padding: 0 0 25px;
+  display: flex;
+  justify-content: center;
+}
+.site-logo {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+/* ===== Navbar ===== */
+.navbar { background: var(--ro-blue-800); position: sticky; top: 0; z-index: 100; }
+.nav-inner {
+  display: flex; align-items: stretch; justify-content: space-between;
+  gap: 24px; height: 56px;
+}
+.nav-links { display: flex; align-items: stretch; gap: 4px; }
+.nav-link {
+  display: flex; align-items: center;
+  padding: 0 14px;
+  color: rgba(255,255,255,.85); background: transparent; border: 0;
+  font-weight: 700; font-size: 17px; letter-spacing: 0.1px;
+  position: relative; text-decoration: none;
+}
+.nav-link:hover { color: #fff; }
+.nav-link.active { color: #fff; }
+.nav-link.active::after {
+  content: ""; position: absolute;
+  left: 14px; right: 14px; bottom: 6px;
+  height: 3px; background: #fff;
+}
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+
+/* Thema-toggle knop */
+.nav-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255,255,255,.7); border-radius: 2px;
+}
+.nav-icon-btn:hover { background: rgba(255,255,255,.08); border-color: #fff; }
+
+/* ===== Main ===== */
+main { flex: 1; padding: 56px 0 80px; background: var(--ink-50); }
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--ro-blue-800); color: rgba(255,255,255,.85);
+  padding: 36px 0 28px; font-size: 14px;
+}
+.footer a { color: #fff; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 28px; }
+.footer h4 {
+  color: #fff; font-size: 14px; margin: 0 0 10px;
+  letter-spacing: .3px; text-transform: uppercase;
+}
+.footer ul { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+/* ===== Typografie (basis) ===== */
+h1, h2, h3, h4 { color: var(--ro-blue-800); font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+h1 { font-size: 44px; line-height: 1.1; }
+h2 { font-size: 30px; line-height: 1.2; }
+h3 { font-size: 20px; line-height: 1.3; }
+
+/* ===== Knoppen (basis) ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 44px; padding: 0 22px;
+  background: var(--ro-blue-600); color: #fff; border: 0; border-radius: var(--radius);
+  font-size: 15px; font-weight: 600; text-decoration: none;
+  transition: background .15s ease;
+}
+.btn:hover { background: #154273; text-decoration: none; }
+.btn.btn-sm { height: 36px; padding: 0 14px; font-size: 14px; }
+
+/* ===== Responsief ===== */
+@media (max-width: 900px) {
+  .container { padding: 0 20px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 18px; }
+  /* Tablet: lint = 45px */
+  .logobar { padding: 0 0 22px; }
+  .site-logo { width: 135px; }
+}
+
+@media (max-width: 480px) {
+  /* Mobiel: lint = 40px */
+  .logobar { padding: 0 0 20px; }
+  .site-logo { width: 120px; }
+}

@@ -3,7 +3,7 @@
 > A short, dated record of how this assistant is classified under the EU AI Act,
 > with reasoning. Drafted with input from the developer; signed off by the
 > compliance officer / legal. This is the first item in the toetsingsdossier
-> (see the `skill-IAMA` skill).
+> (see the `skill-iama` skill).
 
 - **System / assistant:**
 - **Short description of what it does and who it affects:**
@@ -25,7 +25,7 @@
 - ☐ Art. 50 transparency disclosure (any user-facing assistant)
 - ☐ High-risk system requirements art. 9–15 (provider-led)
 - ☐ Art. 26 deployer duties
-- ☐ Art. 27 FRIA (public-body / public-service deployer) → trigger the `skill-IAMA` skill
+- ☐ Art. 27 FRIA (public-body / public-service deployer) → trigger the `skill-iama` skill
 - ☐ Conformity assessment + CE marking (provider)
 - ☐ EU-database registration (art. 49)
 

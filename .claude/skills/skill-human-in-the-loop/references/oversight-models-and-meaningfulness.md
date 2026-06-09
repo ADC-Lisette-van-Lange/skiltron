@@ -13,7 +13,7 @@ Pick deliberately per use case; the right choice depends on the type of system, 
 
 ### When is human-in-the-loop mandatory (not just optional)?
 
-- The system is **high-risk** under the EU AI Act (Annex III) → **art. 14** requires effective human oversight; for public-body deployers this is part of the **art. 27 FRIA**. Use the `ai-act-high-risk` and `skill-IAMA` skills.
+- The system is **high-risk** under the EU AI Act (Annex III) → **art. 14** requires effective human oversight; for public-body deployers this is part of the **art. 27 FRIA**. Use the `ai-act-high-risk` and `skill-iama` skills.
 - The system produces a **solely automated decision with legal or similarly significant effect** on a person → **AVG art. 22**: there must be meaningful human intervention, or a recognised exception that is justified.
 - When unsure, treat oversight as mandatory until the classification says otherwise.
 
