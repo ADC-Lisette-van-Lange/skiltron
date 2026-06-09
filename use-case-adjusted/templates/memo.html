@@ -5,7 +5,7 @@
 <section class="page-hero">
     <div class="hero-inner container">
         <h2>Memo generator</h2>
-        <p class="hero-sub">Beantwoord drie vragen en genereer direct een beleidsadvies als PDF</p>
+        <p class="hero-sub">Beantwoord vier vragen en genereer direct een beleidsadvies als PDF</p>
     </div>
     <div class="hero-ripple">
         <div class="ring r1"></div><div class="ring r2"></div>
@@ -30,7 +30,7 @@
                     <!-- 1. Doelgroep -->
                     <div class="mb-4">
                         <label for="doelgroep" class="form-label fw-semibold">
-                            Voor wie is dit memo bestemd?
+                            Voor wie is deze memo?
                         </label>
                         <textarea
                             id="doelgroep"
@@ -58,7 +58,7 @@
                     <!-- 3. Scope -->
                     <div class="mb-4">
                         <label for="scope" class="form-label fw-semibold">
-                            Wat is de scope van het memo?
+                            Wat is de scope van de memo?
                         </label>
                         <textarea
                             id="scope"
@@ -72,7 +72,7 @@
                     <!-- 4. Doel & richting -->
                     <div class="mb-4">
                         <label for="doel_richting" class="form-label fw-semibold">
-                            Wat is het doel van het memo en welke richting of aanbeveling wordt verwacht?
+                            Wat is het doel van de memo en welke richting of aanbeveling wordt verwacht?
                         </label>
                         <textarea
                             id="doel_richting"
@@ -104,43 +104,38 @@
         </div>
     </div>
 
-    <!-- Tips sidebar -->
-    <div class="col-lg-4">
-        <div class="card h-100">
-            <div class="card-header py-3 px-4">
-                <h6 class="mb-0 fw-bold"><i class="bi bi-lightbulb me-2 text-primary"></i>Tips voor goede instructies</h6>
+    <!-- Rechter kolom: tips + AI-waarborgen -->
+    <div class="col-lg-4 d-flex flex-column gap-4">
+
+        <!-- Used skills -->
+        <div class="card" style="border-color: var(--brand-bright) !important;">
+            <div class="card-header py-3 px-4" style="background: var(--brand-tint) !important;">
+                <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-shield-check me-2"></i>Used skill(s)</h6>
             </div>
             <div class="card-body p-4">
-                <ul class="list-unstyled mb-0" style="font-size:.93rem; line-height:1.7;">
-                    <li class="mb-3">
-                        <i class="bi bi-check2 text-primary me-2"></i>
-                        Noem een <strong>concrete functie</strong> bij de doelgroep: wethouder Mobiliteit is specifieker dan "bestuur".
-                    </li>
-                    <li class="mb-3">
-                        <i class="bi bi-check2 text-primary me-2"></i>
-                        Omschrijf het vraagstuk als een <strong>probleem of dilemma</strong>, niet alleen als onderwerp.
-                    </li>
-                    <li class="mb-3">
-                        <i class="bi bi-check2 text-primary me-2"></i>
-                        Geef bij de scope een <strong>tijdsperiode</strong> én een <strong>geografisch of thematisch kader</strong>.
-                    </li>
-                    <li class="mb-3">
-                        <i class="bi bi-check2 text-primary me-2"></i>
-                        Vraag impliciet om een <strong>aanbeveling</strong> door het vraagstuk als openstaande kwestie te formuleren.
-                    </li>
-                    <li>
-                        <i class="bi bi-info-circle text-primary me-2"></i>
-                        De AI gebruikt automatisch alle beschikbare meldingsdata als feitelijke onderbouwing.
-                    </li>
-                </ul>
+                <div class="p-3 rounded mb-3" style="background: var(--brand-tint); font-size:.82rem; color: var(--ink-2);">
+                    <strong><i class="bi bi-lightbulb me-1 text-primary"></i>Good Practice: Data- en logbescherming (privacy-by-design)</strong><br><br>
+                    <strong>Output skill:</strong> <em>Privacy &amp; Anonimisering</em> — De gegenereerde memo bevat de naam van de melder, wat niet is toegestaan volgens de privacyrichtlijnen.
+                </div>
+                <div class="p-3 rounded mb-3" style="background: var(--brand-tint); font-size:.82rem; color: var(--ink-2);">
+                    <strong><i class="bi bi-lightbulb me-1 text-primary"></i>Good Practice: Monitoring, evaluatie en LLMOps - meten is weten, ook voor AI</strong><br><br>
+                    <strong>Output skill:</strong> <em>Hallucinatie</em> — De memo-generator heeft grounding-regels in de systeemprompt, maar zonder observability-infrastructuur kan hallucinatie onopgemerkt optreden.                </div>
+                <div class="p-3 rounded" style="background: var(--surface-2, #f3f4f6); font-size:.82rem; color: var(--ink-2);">
+                    <strong><i class="bi bi-check2-circle me-1 text-primary"></i>Veranderingen toegepast:</strong><br>
+                    Prompt van de memo tekst generator aangepast met deze restricties.
+                </div>
             </div>
         </div>
+
     </div>
 
 </div>
 {% endblock %}
 
 {% block scripts %}
+<style>
+    textarea::placeholder { font-size: .8rem; }
+</style>
 <script>
 document.getElementById('memo-form').addEventListener('submit', async function(e) {
     e.preventDefault();

@@ -107,7 +107,7 @@
   ---
   8. Kleinste Model per Taak
 
-  Waarom relevant: De chatbot gebruikt nu één model (gemma4 via GreenPT, llm.py:16) voor alle vragen. Eenvoudige statistiekvragen ("hoeveel meldingen zijn er open?") vereisen minder capaciteit dan complexe analysesvragen. Een configuratie per taak bespaart kosten en latentie.
+  Waarom relevant: De chatbot gebruikt nu één model (gemma4 via GreenPT) voor alle vragen. Eenvoudige statistiekvragen ("hoeveel meldingen zijn er open?") vereisen minder capaciteit dan complexe analysesvragen. Een configuratie per taak bespaart kosten en latentie.
 
   Waarmee het helpt: Een configuratiebestand waarin per taaktype staat welk model je inzet.
 
